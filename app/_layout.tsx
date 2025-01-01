@@ -13,10 +13,9 @@ import { Platform } from "react-native";
 import { useColorScheme } from "../lib/useColorScheme";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { NAV_THEME } from "~/lib/constants";
-import { ThemeToggle } from "~/components/ThemeToggle"; // Dark/Light Mode Toggle
+import { ThemeToggle } from "~/components/ThemeToggle";
 import { Stack } from "expo-router";
 
-// Temalar
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
   colors: NAV_THEME.light,
@@ -27,7 +26,6 @@ const DARK_THEME: Theme = {
   colors: NAV_THEME.dark,
 };
 
-// Splash ekranını geç göstermemiz için
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -45,7 +43,7 @@ export default function RootLayout() {
         setIsColorSchemeLoaded(true);
         return;
       }
-      const colorTheme = theme === "dark" ? "dark" : "light";
+      const colorTheme = theme ? "dark" : "light";
       if (colorTheme !== colorScheme) {
         setColorScheme(colorTheme);
         setAndroidNavigationBar(colorTheme);
@@ -69,6 +67,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="(tabs)"
           options={{
+            title: "Geri",
             headerShown: false, // Ana header'ı burada gizliyoruz
           }}
         />

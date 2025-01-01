@@ -1,5 +1,6 @@
 import React from "react";
-import { TouchableOpacity, Text, View, useColorScheme } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 type CategoryFilterProps = {
   selectedCategory: string;
@@ -17,7 +18,7 @@ export default function CategoryFilter({
   selectedCategory,
   setSelectedCategory,
 }: CategoryFilterProps) {
-  const theme = useColorScheme();
+  const { isDarkColorScheme } = useColorScheme();
 
   return (
     <View className="flex flex-row justify-start items-center gap-x-1">
@@ -27,7 +28,7 @@ export default function CategoryFilter({
           className={`px-2 py-1 rounded-xl ${
             selectedCategory === key
               ? "bg-[#27278d]"
-              : theme === "dark"
+              : isDarkColorScheme
               ? "bg-gray-700"
               : "bg-gray-300"
           } ${key === "crypto" ? "opacity-50" : ""}`}
@@ -37,7 +38,7 @@ export default function CategoryFilter({
             className={`text-xs font-normal ${
               selectedCategory === key
                 ? "text-white"
-                : theme === "dark"
+                : isDarkColorScheme
                 ? "text-white"
                 : "text-black"
             }`}

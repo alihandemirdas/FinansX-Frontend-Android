@@ -2,6 +2,7 @@
   "build": {
     "preview": {
       "android": {
+        "enableHermes": true,
         "buildType": "apk"
       }
     },

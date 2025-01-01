@@ -1,11 +1,20 @@
 import React from "react";
 import { ScrollView, View, Text } from "react-native";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 const TermsOfService: React.FC = () => {
+  const { isDarkColorScheme } = useColorScheme();
+
   return (
-    <ScrollView className="flex-1 bg-white dark:bg-[#232336]">
+    <ScrollView
+      className={`flex-1 ${isDarkColorScheme ? "bg-[#232336]" : "bg-white"}`}
+    >
       <View className="justify-center items-center px-8 py-10">
-        <Text className="text-black dark:text-white text-lg">
+        <Text
+          className={`text-lg ${
+            isDarkColorScheme ? "text-white" : "text-black"
+          }`}
+        >
           FinansX Kullanım Sözleşmesi{"\n"}Son Güncelleme: [22.12.2024] {"\n\n"}
           Bu uygulama, kullanıcılarına güncel olarak anlık döviz ve altın fiyat
           bilgilerini sunar. Kullanıcılar uygulamayı indirerek aşağıdaki
@@ -23,8 +32,8 @@ const TermsOfService: React.FC = () => {
           sözleşme koşullarını önceden bildirmeksizin değiştirme hakkını saklı
           tutar. Değişiklikler uygulama üzerinden duyurulur. Uygulamayı
           kullanarak bu koşulları kabul etmiş sayılırsınız. Herhangi bir sorunuz
-          olması durumunda bizimle [katreodigital@gmail.com] üzerinden
-          iletişime geçebilirsiniz.
+          olması durumunda bizimle [katreodigital@gmail.com] üzerinden iletişime
+          geçebilirsiniz.
         </Text>
       </View>
     </ScrollView>

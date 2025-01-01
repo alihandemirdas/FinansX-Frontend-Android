@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Alert, TouchableOpacity, useColorScheme, View } from "react-native";
+import { Alert, TouchableOpacity, View } from "react-native";
 import { Text } from "~/components/ui/text";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 type CurrencyCardProps = {
   buyValue: string;
@@ -19,7 +20,7 @@ export default function CurrencyCardFav({
   label,
   labelLong,
 }: CurrencyCardProps) {
-  const scheme = useColorScheme();
+  const { isDarkColorScheme } = useColorScheme();
   const [menuVisible, setMenuVisible] = useState(false);
 
   const handleRemoveFavorite = async () => {
@@ -44,13 +45,13 @@ export default function CurrencyCardFav({
   };
 
   return (
-    <View className="w-full bg-white dark:bg-[#232336] rounded-tr-2xl">
-      <View className="w-full p-1 rounded-2xl border-[1px] border-[#cfcfcf] dark:border-gray-600">
-        <View className="w-full flex flex-col py-[6px] px-4 dark:bg-[#232336] gap-y-2">
+    <View className={`w-full rounded-tr-2xl ${isDarkColorScheme ? "bg-[#232336]" : "bg-white"}`}>
+      <View className={`w-full p-1 rounded-2xl border-[1px] ${isDarkColorScheme ? "border-gray-600" : "border-[#cfcfcf]"}`}>
+        <View className={`w-full flex flex-col py-[6px] px-4 gap-y-2 ${isDarkColorScheme ? "bg-[#232336]" : "bg-white"}`}>
           {/* Üst Bilgi */}
           <View className="flex flex-row justify-between items-center">
             <View className="flex-row items-center gap-x-4 justify-start">
-              <Text className="text-lg font-bold text-gray-800 dark:text-white">
+              <Text className={`text-lg font-bold ${isDarkColorScheme ? "text-white" : "text-gray-800"}`}>
                 {label}
               </Text>
               <Text className="text-sm text-gray-400">{"| " + labelLong}</Text>
@@ -60,7 +61,7 @@ export default function CurrencyCardFav({
               <Ionicons
                 name="ellipsis-horizontal-outline"
                 size={20}
-                color={scheme === "dark" ? "white" : "black"}
+                color={isDarkColorScheme ? "white" : "black"}
               />
             </TouchableOpacity>
           </View>
@@ -84,7 +85,7 @@ export default function CurrencyCardFav({
                   {"Alış:   "}
                 </Text>
                 <Text className="text-base font-semibold shadow-2xl">
-                  {parseFloat(buyValue.replace(",", ".")).toFixed(4)}
+                  {parseFloat(buyValue.replace(",", ".")).toFixed(4)}{"₺"}
                 </Text>
               </View>
               <View className="flex flex-row">
@@ -92,7 +93,7 @@ export default function CurrencyCardFav({
                   {"Satış: "}
                 </Text>
                 <Text className="text-base font-semibold shadow-2xl">
-                  {parseFloat(sellValue.replace(",", ".")).toFixed(4)}
+                  {parseFloat(sellValue.replace(",", ".")).toFixed(4)}{"₺"}
                 </Text>
               </View>
             </View>

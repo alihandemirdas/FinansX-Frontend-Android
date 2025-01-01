@@ -1,20 +1,21 @@
 import {
   View,
   Text,
-  useColorScheme,
   ActivityIndicator,
   FlatList,
   RefreshControl,
+  Platform,
 } from "react-native";
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect, useRef } from "react";
 import { useCurrencyData } from "~/hooks/useCurrencyData";
 import CurrencyCard from "~/components/CurrencyCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useExchangeRatesStore from "~/stores/exchangeRatesStore";
 import CurrencyCardFav from "~/components/CurrencyCardFav";
+import { useColorScheme } from "~/lib/useColorScheme";
 
-const list = () => {
-  const theme = useColorScheme();
+const list: React.FC = () => {
+  const { isDarkColorScheme } = useColorScheme();
   const { currencyData, loading, fetchData } = useCurrencyData();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -45,20 +46,21 @@ const list = () => {
     fetchFavorites();
   }, [onRefresh, filteredData]);
 
-  const refreshControlColors =
-    theme === "dark"
-      ? {
-          spinnerColor: "#ffffff",
-          titleColor: "#efefef",
-        }
-      : {
-          spinnerColor: "#27278d",
-          titleColor: "#27278d",
-        };
+  const refreshControlColors = isDarkColorScheme
+    ? {
+        spinnerColor: "#ffffff",
+        titleColor: "#efefef",
+      }
+    : {
+        spinnerColor: "#27278d",
+        titleColor: "#27278d",
+      };
 
   return (
     <View
-      className={`flex-1 p-6 ${theme === "dark" ? "bg-[#232336]" : "bg-white"}`}
+      className={`flex-1 p-6 ${
+        isDarkColorScheme ? "bg-[#232336]" : "bg-white"
+      }`}
     >
       {loading ? (
         <View className="flex-1 justify-center items-center">
@@ -66,11 +68,15 @@ const list = () => {
             size="large"
             color={refreshControlColors.spinnerColor}
           />
-          <Text className="text-[#27278d] dark:text-white">Güncelleniyor</Text>
+          <Text className={isDarkColorScheme ? "text-white" : "text-[#27278d]"}>
+            Güncelleniyor
+          </Text>
         </View>
       ) : filteredData.length === 0 ? (
         <View className="flex-1 justify-center items-center">
-          <Text className="text-gray-500 dark:text-gray-300">
+          <Text
+            className={isDarkColorScheme ? "text-gray-300" : "text-gray-500"}
+          >
             Favoriye eklenen bulunamadı!
           </Text>
         </View>

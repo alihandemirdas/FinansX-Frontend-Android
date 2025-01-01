@@ -23,7 +23,7 @@ export default function RightAction({
       transform: [{ translateX: clampedValue }],
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "green",
+      backgroundColor: "#70e000",
       borderTopRightRadius: 16,
       borderBottomRightRadius: 16,
       paddingHorizontal: 6,

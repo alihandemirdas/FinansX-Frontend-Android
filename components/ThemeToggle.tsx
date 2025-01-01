@@ -5,23 +5,27 @@ import { MoonStar } from '~/lib/icons/MoonStar';
 import { Sun } from '~/lib/icons/Sun';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { cn } from '~/lib/utils';
+import React, { useCallback } from 'react';
 
-export function ThemeToggle() {
+export const ThemeToggle = React.memo(() => {
   const { isDarkColorScheme, setColorScheme } = useColorScheme();
+
+  const handlePress = useCallback(async () => {
+    const newTheme = isDarkColorScheme ? 'light' : 'dark';
+    setColorScheme(newTheme);
+    setAndroidNavigationBar(newTheme);
+    await AsyncStorage.setItem('theme', newTheme);
+  }, [isDarkColorScheme, setColorScheme]);
+
   return (
     <Pressable
-      onPress={() => {
-        const newTheme = isDarkColorScheme ? 'light' : 'dark';
-        setColorScheme(newTheme);
-        setAndroidNavigationBar(newTheme);
-        AsyncStorage.setItem('theme', newTheme);
-      }}
+      onPress={handlePress}
       className='web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2'
     >
       {({ pressed }) => (
         <View
           className={cn(
-            'flex-1 aspect-square pt-0.5 justify-center items-start web:px-5',
+            'flex-1 aspect-square justify-center items-start',
             pressed && 'opacity-70'
           )}
         >
@@ -34,4 +38,4 @@ export function ThemeToggle() {
       )}
     </Pressable>
   );
-}
+});

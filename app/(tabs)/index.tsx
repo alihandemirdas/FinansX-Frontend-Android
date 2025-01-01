@@ -3,7 +3,6 @@ import {
   View,
   RefreshControl,
   Alert,
-  FlatList,
   useColorScheme,
   BackHandler,
 } from "react-native";
@@ -20,10 +19,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import { configureReanimatedLogger } from "react-native-reanimated";
+import Banner from "~/components/Banner";
+import { FlashList } from "@shopify/flash-list";
 
 const chartData = [27.5, 28, 27.8, 28.2, 28.5, 28, 27.8, 28.2, 28.5];
 
-export default function MainScreen() {
+const MainScreen: React.FC = () => {
   const { rates, connectSocket, disconnectSocket, setRates } =
     useExchangeRatesStore();
   const { currencyData, loading, fetchData } = useCurrencyData();
@@ -123,6 +124,7 @@ export default function MainScreen() {
     <View
       className={`flex-1 p-6 ${theme === "dark" ? "bg-[#232336]" : "bg-white"}`}
     >
+      {/* <Banner /> */}
       <HeroCard currencyCard={rates} />
       <View className="flex flex-row items-center justify-between px-2">
         <CategoryFilter
@@ -134,11 +136,10 @@ export default function MainScreen() {
       {loading ? (
         <LoadingIndicator spinnerColor={refreshControlColors.spinnerColor} />
       ) : (
-        <FlatList
+        <FlashList
           data={filteredData}
           keyExtractor={(item, index) => `${item.currencyCode}-${index}`}
-          initialNumToRender={20} // Daha fazla öğe render et
-          removeClippedSubviews={false} // Kartların yarım render olmasını önle
+          estimatedItemSize={100} // Ortalama öğe yüksekliği
           renderItem={({ item }) => (
             <GestureHandlerRootView>
               <ReanimatedSwipeable
@@ -179,4 +180,6 @@ export default function MainScreen() {
       )}
     </View>
   );
-}
+};
+
+export default MainScreen;

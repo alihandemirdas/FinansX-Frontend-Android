@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   Alert,
   Animated,
-  useColorScheme,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 const Contact: React.FC = () => {
   const [firstName, setName] = useState("");
@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const colorScheme = useColorScheme();
+  const { isDarkColorScheme } = useColorScheme();
 
   // Animated value for icon movement
   const iconAnimation = useRef(new Animated.Value(0)).current;
@@ -82,22 +82,22 @@ const Contact: React.FC = () => {
               name="mail"
               size={80}
               style={{
-                color: colorScheme === "dark" ? "#ebebeb" : "#27278d",
+                color: isDarkColorScheme ? "#ebebeb" : "#27278d",
               }}
             />
           </Animated.View>
-          <Text className="text-[#27278d] dark:text-[#ebebeb] text-lg mt-4 mb-3">
+          <Text className={`text-lg mt-4 mb-3 ${isDarkColorScheme ? "text-[#ebebeb]" : "text-[#27278d]"}`}>
             En kısa sürede geri dönüş yapacağız.
           </Text>
           <TextInput
-            className="w-full bg-gray-300 dark:bg-gray-600 text-white px-4 py-3 mb-4 mt-8 rounded-md"
+            className={`w-full px-4 py-3 mb-4 mt-8 rounded-md ${isDarkColorScheme ? "bg-gray-600 text-white" : "bg-gray-300 text-black"}`}
             placeholder="İsminiz"
             placeholderTextColor="#aaa"
             value={firstName}
             onChangeText={setName}
           />
           <TextInput
-            className="w-full bg-gray-300 dark:bg-gray-600 text-white px-4 py-3 mb-4 rounded-md"
+            className={`w-full px-4 py-3 mb-4 rounded-md ${isDarkColorScheme ? "bg-gray-600 text-white" : "bg-gray-300 text-black"}`}
             placeholder="Mail Adresiniz"
             placeholderTextColor="#aaa"
             value={email}
@@ -105,7 +105,7 @@ const Contact: React.FC = () => {
             keyboardType="email-address"
           />
           <TextInput
-            className="w-full bg-gray-300 dark:bg-gray-600 text-white px-4 py-3 mb-4 rounded-md h-24"
+            className={`w-full px-4 py-3 mb-4 rounded-md h-24 ${isDarkColorScheme ? "bg-gray-600 text-white" : "bg-gray-300 text-black"}`}
             placeholder="Mesajınız"
             placeholderTextColor="#aaa"
             value={message}

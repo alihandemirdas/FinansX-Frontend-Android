@@ -1,8 +1,9 @@
 import React from "react";
-import { useColorScheme, View } from "react-native";
+import { View } from "react-native";
 import { Text } from "~/components/ui/text";
-import { LineChart } from "react-native-chart-kit"; // Grafik için kütüphane
+import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -23,17 +24,33 @@ export default function CurrencyCard({
   label,
   labelLong,
 }: CurrencyCardProps) {
-  const scheme = useColorScheme();
+  const { isDarkColorScheme } = useColorScheme();
 
   return (
-    <View className="w-full bg-white dark:bg-[#232336] rounded-tr-2xl">
-      <View className="w-full p-1 rounded-2xl border-[1px] border-[#cfcfcf] dark:border-gray-600">
-        <View className="w-full flex flex-row justify-between items-center py-[6px] px-4 dark:bg-[#232336] gap-x-4">
+    <View
+      className={`w-full ${
+        isDarkColorScheme ? "bg-[#232336]" : "bg-white"
+      } rounded-tr-2xl`}
+    >
+      <View
+        className={`w-full p-1 rounded-2xl border-[1px] ${
+          isDarkColorScheme ? "border-gray-600" : "border-[#cfcfcf]"
+        }`}
+      >
+        <View
+          className={`w-full flex flex-row justify-between items-center py-[6px] px-4 gap-x-4 ${
+            isDarkColorScheme ? "bg-[#232336]" : "bg-white"
+          }`}
+        >
           {/* İkon Bölgesi */}
           <View className="w-1/3 items-start">
             <View className="flex-row items-center">
               {/* Label */}
-              <Text className="text-lg font-bold text-gray-800 dark:text-white">
+              <Text
+                className={`text-lg font-bold ${
+                  isDarkColorScheme ? "text-white" : "text-gray-800"
+                }`}
+              >
                 {label}
               </Text>
               {/* Change Box */}
@@ -59,7 +76,13 @@ export default function CurrencyCard({
               )}
             </View>
             {/* Label Long */}
-            <Text className="text-sm text-gray-400">{labelLong}</Text>
+            <Text
+              className={`text-sm ${
+                isDarkColorScheme ? "text-gray-400" : "text-gray-400"
+              }`}
+            >
+              {labelLong}
+            </Text>
           </View>
 
           {/* Grafik Bölgesi */}
@@ -77,15 +100,16 @@ export default function CurrencyCard({
               height={45} // Grafik yüksekliği
               chartConfig={{
                 backgroundColor: "transparent",
-                backgroundGradientFrom:
-                  scheme === "dark" ? "#232336" : "#ffffff",
-                backgroundGradientTo: scheme === "dark" ? "#232336" : "#ffffff",
+                backgroundGradientFrom: isDarkColorScheme
+                  ? "#232336"
+                  : "#ffffff",
+                backgroundGradientTo: isDarkColorScheme ? "#232336" : "#ffffff",
                 color: () => `rgba(1, 1, 255, 1)`,
                 strokeWidth: 3,
                 propsForDots: { r: "0" },
               }}
               style={{
-                backgroundColor: scheme === "dark" ? "#232336" : "#ffffff",
+                backgroundColor: isDarkColorScheme ? "#232336" : "#ffffff",
               }}
               withDots={false}
               withInnerLines={false}
@@ -99,9 +123,11 @@ export default function CurrencyCard({
           <View className="w-2/3 absolute right-0 justify-end flex flex-row gap-x-4 overflow-hidden pr-2">
             <Text className="text-base font-semibold shadow-2xl">
               {parseFloat(buyValue.replace(",", ".")).toFixed(4)}
+              {"₺"}
             </Text>
             <Text className="text-base font-semibold shadow-2xl">
               {parseFloat(sellValue.replace(",", ".")).toFixed(4)}
+              {"₺"}
             </Text>
           </View>
         </View>

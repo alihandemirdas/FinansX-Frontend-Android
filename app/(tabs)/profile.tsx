@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 type RootStackParamList = {
   Contact: undefined;
@@ -30,6 +31,7 @@ const { height } = Dimensions.get("window");
 
 const Profile: React.FC = () => {
   const navigation = useNavigation();
+  const { isDarkColorScheme } = useColorScheme();
 
   const handleNavigation = (screen: keyof RootStackParamList) => {
     navigation.navigate(screen);
@@ -39,7 +41,9 @@ const Profile: React.FC = () => {
     <View className="flex-1 p-6">
       <View
         style={{ height: height * 0.45 }}
-        className="w-full bg-[#27278d] rounded-3xl items-center justify-center relative"
+        className={`w-full rounded-3xl items-center justify-center relative ${
+          isDarkColorScheme ? "bg-[#27278d]" : "bg-[#27278d]"
+        }`}
       >
         <Ionicons name="person-circle-outline" size={80} color="white" />
         <Text className="text-2xl font-bold text-white mt-4">FinansX</Text>
@@ -52,7 +56,9 @@ const Profile: React.FC = () => {
           {data.map((item) => (
             <TouchableOpacity
               key={item.screen}
-              className="bg-gray-50 dark:bg-[#fefefe] p-4 rounded-lg mb-4 flex flex-row items-center shadow-md"
+              className={`p-4 rounded-lg mb-4 flex flex-row items-center shadow-md ${
+                isDarkColorScheme ? "bg-[#fefefe]" : "bg-gray-50"
+              }`}
               onPress={() => handleNavigation(item.screen)}
             >
               <Ionicons name={item.icon} size={28} color="#27278d" />

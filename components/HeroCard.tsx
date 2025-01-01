@@ -23,6 +23,7 @@ import SeFlag from "./flags/SeFlag";
 import JpFlag from "./flags/JpFlag";
 import CnFlag from "./flags/CnFlag";
 import useExchangeRatesStore from "~/stores/exchangeRatesStore";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
   const [amount, setAmount] = useState<string>("1");
@@ -31,6 +32,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
   const [result, setResult] = useState<string>("0.00");
   const { lastUpdated } = useExchangeRatesStore();
   const rotation = useRef(new Animated.Value(0)).current;
+  const { isDarkColorScheme } = useColorScheme();
 
   const handleConversion = (newAmount?: string) => {
     const amountValue = newAmount !== undefined ? newAmount : amount;
@@ -127,10 +129,18 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
   const SelectedFlag2 = currencyFlags[toCurrency];
 
   return (
-    <View className="p-5 bg-gray-200 dark:bg-white rounded-3xl drop-shadow-lg mb-5 gap-y-4">
+    <View
+      className={`p-5 rounded-3xl drop-shadow-lg mb-5 gap-y-4 ${
+        isDarkColorScheme ? "bg-white" : "bg-gray-200"
+      }`}
+    >
       {/* Üst Satır */}
       <View className="w-full flex flex-row items-center px-4">
-        <View className="w-1/6 aspect-square rounded-full bg-white flex justify-center items-center shadow-sm">
+        <View
+          className={`w-1/6 aspect-square rounded-full flex justify-center items-center shadow-sm ${
+            isDarkColorScheme ? "bg-[#232336]" : "bg-white"
+          }`}
+        >
           <SelectedFlag />
         </View>
         <View className="flex-1">
@@ -167,7 +177,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
               setAmount(text);
               handleConversion(text);
             }}
-            placeholder="0"
+            placeholder="1"
             keyboardType="numeric"
             style={{ backgroundColor: "#efefef" }}
             className="w-full h-14 bg-[#efefef] text-black px-4 rounded-2xl text-right text-2xl font-medium shadow-md"
@@ -196,7 +206,11 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
 
       {/* Alt Satır */}
       <View className="w-full flex flex-row items-center px-4">
-        <View className="w-1/6 aspect-square rounded-full bg-white flex justify-center items-center shadow-sm">
+        <View
+          className={`w-1/6 aspect-square rounded-full flex justify-center items-center shadow-sm ${
+            isDarkColorScheme ? "bg-[#232336]" : "bg-white"
+          }`}
+        >
           <SelectedFlag2 />
         </View>
         <View className="flex-1">

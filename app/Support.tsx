@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { View, Text, Animated, Easing, useColorScheme } from "react-native";
+import { View, Text, Animated, Easing } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 const Support: React.FC = () => {
-  const colorScheme = useColorScheme();
+  const { isDarkColorScheme } = useColorScheme();
   const iconAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const Support: React.FC = () => {
   }, []);
 
   return (
-    <View className="flex bg-white dark:bg-[#232336] justify-center items-center mt-40">
+    <View className={`flex ${isDarkColorScheme ? 'bg-[#232336]' : 'bg-white'} justify-center items-center mt-40`}>
       <Animated.View
         style={{
           transform: [{ translateY: iconAnimation }], // Apply animation
@@ -35,12 +36,12 @@ const Support: React.FC = () => {
           name="diamond"
           size={90}
           style={{
-            color: colorScheme === "dark" ? "#ebebeb" : "#27278d",
+            color: isDarkColorScheme ? "#ebebeb" : "#27278d",
           }}
         />
       </Animated.View>
 
-      <Text className=" text-black dark:text-white text-xl mt-12 text-center px-8">
+      <Text className={`text-xl mt-12 text-center px-8 ${isDarkColorScheme ? 'text-white' : 'text-black'}`}>
         Destek olmak, reklam ve sponsorluk için iletişime geçebilirsiniz
       </Text>
       <Text className="text-blue-500 mt-2 px-8">ben@alihandemirdas.com.tr</Text>
