@@ -1,18 +1,17 @@
 {
   "expo": {
     "name": "FinansX",
-    "slug": "Güncel Döviz, Altın",
+    "slug": "FinansX",
     "version": "1.0.0",
     "orientation": "portrait",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "backgroundColor": "#232336"
+    },
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "newArchEnabled": true,
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#232336"
-    },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
@@ -49,7 +48,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "4da94823-4953-44d2-85f4-aaedc46e969c"
+        "projectId": "c220ef3e-c5e2-4e32-8546-a2ad1b95c2c3"
       }
     }
   }

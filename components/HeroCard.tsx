@@ -130,12 +130,12 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
 
   return (
     <View
-      className={`p-5 rounded-3xl drop-shadow-lg mb-5 gap-y-4 ${
+      className={`p-5 rounded-3xl drop-shadow-lg mb-4 ${
         isDarkColorScheme ? "bg-white" : "bg-gray-200"
       }`}
     >
       {/* Üst Satır */}
-      <View className="w-full flex flex-row items-center px-4">
+      <View className="w-full flex flex-row items-center">
         <View
           className={`w-1/6 aspect-square rounded-full flex justify-center items-center shadow-sm ${
             isDarkColorScheme ? "bg-[#232336]" : "bg-white"
@@ -143,7 +143,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
         >
           <SelectedFlag />
         </View>
-        <View className="flex-1">
+        <View className="flex w-2/6">
           {Platform.OS === "ios" ? (
             <Button
               title={fromCurrency}
@@ -170,7 +170,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
             </Picker>
           )}
         </View>
-        <View className="flex-1">
+        <View className="flex w-3/6">
           <TextInput
             value={amount}
             onChangeText={(text) => {
@@ -180,7 +180,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
             placeholder="1"
             keyboardType="numeric"
             style={{ backgroundColor: "#efefef" }}
-            className="w-full h-14 bg-[#efefef] text-black px-4 rounded-2xl text-right text-2xl font-medium shadow-md"
+            className="w-full h-12 bg-[#efefef] text-black px-4 rounded-2xl text-right text-2xl font-medium shadow-md"
           />
         </View>
       </View>
@@ -205,7 +205,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
       </View>
 
       {/* Alt Satır */}
-      <View className="w-full flex flex-row items-center px-4">
+      <View className="w-full flex flex-row items-center">
         <View
           className={`w-1/6 aspect-square rounded-full flex justify-center items-center shadow-sm ${
             isDarkColorScheme ? "bg-[#232336]" : "bg-white"
@@ -213,7 +213,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
         >
           <SelectedFlag2 />
         </View>
-        <View className="flex-1">
+        <View className="flex w-2/6">
           {Platform.OS === "ios" ? (
             <Button
               title={toCurrency}
@@ -240,17 +240,17 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
             </Picker>
           )}
         </View>
-        <View className="flex-1">
+        <View className="flex w-3/6">
           <TextInput
             value={result}
             editable={false}
-            className="w-full h-14 text-black px-4 rounded-2xl text-right text-2xl font-medium shadow-md"
+            className="w-full h-12 text-black px-4 rounded-2xl text-right text-2xl font-medium shadow-md"
             style={{ backgroundColor: "#efefef" }}
           />
         </View>
       </View>
 
-      <View className="flex flex-row px-2 justify-center">
+      <View className="flex flex-row justify-center mt-2">
         <Text className="text-gray-600 font-light text-xs">
           Son Güncelleme: {lastUpdated}
         </Text>

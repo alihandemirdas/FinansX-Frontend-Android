@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "998999005950",
+    "project_id": "finansx",
+    "storage_bucket": "finansx.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998999005950:android:a204cb33d0015e7382e3af",
+        "android_client_info": {
+          "package_name": "com.katreo.finansx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvxHpmOAmHwwFUhk5owVV7OYm--Z6j8eU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

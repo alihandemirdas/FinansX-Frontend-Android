@@ -21,11 +21,6 @@ const Banner: React.FC = () => {
         ref={bannerRef}
         unitId={adUnitId}
         size={BannerAdSize.BANNER}
-        requestOptions={{
-          networkExtras: {
-            collapsible: "top",
-          },
-        }}
         onAdFailedToLoad={(error) =>
           console.error("Ad failed to load:", error.message)
         }

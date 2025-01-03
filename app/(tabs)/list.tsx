@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useExchangeRatesStore from "~/stores/exchangeRatesStore";
 import CurrencyCardFav from "~/components/CurrencyCardFav";
 import { useColorScheme } from "~/lib/useColorScheme";
+import Banner from "~/components/Banner";
 
 const list: React.FC = () => {
   const { isDarkColorScheme } = useColorScheme();
@@ -62,6 +63,9 @@ const list: React.FC = () => {
         isDarkColorScheme ? "bg-[#232336]" : "bg-white"
       }`}
     >
+      <View className="flex items-center justify-center mb-2">
+        <Banner />
+      </View>
       {loading ? (
         <View className="flex-1 justify-center items-center">
           <ActivityIndicator

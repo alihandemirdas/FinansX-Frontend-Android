@@ -1,10 +1,17 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import {
   View,
   RefreshControl,
   Alert,
   useColorScheme,
   BackHandler,
+  FlatList,
 } from "react-native";
 import CurrencyCard from "~/components/CurrencyCard";
 import HeroCard from "~/components/HeroCard";
@@ -18,9 +25,8 @@ import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
-import { configureReanimatedLogger } from "react-native-reanimated";
 import Banner from "~/components/Banner";
-import { FlashList } from "@shopify/flash-list";
+import { configureReanimatedLogger } from "react-native-reanimated";
 
 const chartData = [27.5, 28, 27.8, 28.2, 28.5, 28, 27.8, 28.2, 28.5];
 
@@ -111,8 +117,12 @@ const MainScreen: React.FC = () => {
     setIsRefreshing(false);
   }, [fetchData, currencyData, setRates]);
 
-  const filteredData = rates.filter((item) =>
-    selectedCategory === "all" ? true : item.category === selectedCategory
+  const filteredData = useMemo(
+    () =>
+      rates.filter((item) =>
+        selectedCategory === "all" ? true : item.category === selectedCategory
+      ),
+    [rates, selectedCategory]
   );
 
   const refreshControlColors = {
@@ -121,63 +131,71 @@ const MainScreen: React.FC = () => {
   };
 
   return (
-    <View
-      className={`flex-1 p-6 ${theme === "dark" ? "bg-[#232336]" : "bg-white"}`}
-    >
-      {/* <Banner /> */}
-      <HeroCard currencyCard={rates} />
-      <View className="flex flex-row items-center justify-between px-2">
-        <CategoryFilter
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-        <HeaderLabels />
-      </View>
-      {loading ? (
-        <LoadingIndicator spinnerColor={refreshControlColors.spinnerColor} />
-      ) : (
-        <FlashList
-          data={filteredData}
-          keyExtractor={(item, index) => `${item.currencyCode}-${index}`}
-          estimatedItemSize={100} // Ortalama öğe yüksekliği
-          renderItem={({ item }) => (
-            <GestureHandlerRootView>
-              <ReanimatedSwipeable
-                friction={2}
-                containerStyle={{ marginTop: 8 }}
-                enableTrackpadTwoFingerGesture
-                rightThreshold={40}
-                renderRightActions={(prog, drag) => (
-                  <RightAction
-                    drag={drag}
-                    handleFavorite={handleFavorite}
-                    currencyCode={item.currencyCode}
+    <View className="flex-1">
+      <View
+        className={`flex-1 px-6 pt-6 ${
+          theme === "dark" ? "bg-[#232336]" : "bg-white"
+        }`}
+      >
+        <HeroCard currencyCard={rates} />
+        <View className="flex flex-row items-center justify-between px-2">
+          <CategoryFilter
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+          <HeaderLabels />
+        </View>
+        {loading ? (
+          <LoadingIndicator spinnerColor={refreshControlColors.spinnerColor} />
+        ) : (
+          <FlatList
+            data={filteredData}
+            keyExtractor={(item, index) => `${item.currencyCode}-${index}`}
+            renderItem={({ item }) => (
+              <GestureHandlerRootView>
+                <ReanimatedSwipeable
+                  friction={2}
+                  containerStyle={{ marginTop: 8 }}
+                  enableTrackpadTwoFingerGesture
+                  rightThreshold={40}
+                  renderRightActions={(prog, drag) => (
+                    <RightAction
+                      drag={drag}
+                      handleFavorite={handleFavorite}
+                      currencyCode={item.currencyCode}
+                    />
+                  )}
+                  ref={(ref) =>
+                    swipeableRefs.current.set(item.currencyCode, ref)
+                  }
+                >
+                  <CurrencyCard
+                    chartData={chartData}
+                    buyValue={`${item.buyRate} ₺`}
+                    sellValue={`${item.sellRate} ₺`}
+                    change={item.change}
+                    label={item.currencyCode}
+                    labelLong={item.currencyName}
                   />
-                )}
-                ref={(ref) => swipeableRefs.current.set(item.currencyCode, ref)}
-              >
-                <CurrencyCard
-                  chartData={chartData}
-                  buyValue={`${item.buyRate} ₺`}
-                  sellValue={`${item.sellRate} ₺`}
-                  change={item.change}
-                  label={item.currencyCode}
-                  labelLong={item.currencyName}
-                />
-              </ReanimatedSwipeable>
-            </GestureHandlerRootView>
-          )}
-          refreshControl={
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={onRefresh}
-              tintColor={refreshControlColors.spinnerColor}
-              title="Yenileniyor..."
-              titleColor={refreshControlColors.titleColor}
-            />
-          }
-        />
-      )}
+                </ReanimatedSwipeable>
+              </GestureHandlerRootView>
+            )}
+            refreshControl={
+              <RefreshControl
+                refreshing={isRefreshing}
+                onRefresh={onRefresh}
+                tintColor={refreshControlColors.spinnerColor}
+                title="Yenileniyor..."
+                titleColor={refreshControlColors.titleColor}
+              />
+            }
+            ListFooterComponent={<View style={{ height: 60 }} />}
+          />
+        )}
+      </View>
+      <View className="pb-1 absolute bottom-0 w-full justify-center items-center flex">
+        <Banner />
+      </View>
     </View>
   );
 };

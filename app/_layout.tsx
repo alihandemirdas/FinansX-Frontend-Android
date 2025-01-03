@@ -10,11 +10,12 @@ import { SplashScreen } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { Platform } from "react-native";
-import { useColorScheme } from "../lib/useColorScheme";
+import { useColorScheme } from "~/lib/useColorScheme";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { NAV_THEME } from "~/lib/constants";
 import { ThemeToggle } from "~/components/ThemeToggle";
 import { Stack } from "expo-router";
+import Banner from "~/components/Banner";
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,

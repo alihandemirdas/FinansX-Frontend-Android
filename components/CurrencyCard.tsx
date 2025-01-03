@@ -122,11 +122,27 @@ export default function CurrencyCard({
           {/* Değer Bölgesi */}
           <View className="w-2/3 absolute right-0 justify-end flex flex-row gap-x-4 overflow-hidden pr-2">
             <Text className="text-base font-semibold shadow-2xl">
-              {parseFloat(buyValue.replace(",", ".")).toFixed(4)}
+              {parseFloat(buyValue.replace(",", ".")).toFixed(4).split(".")[0]}
+              <Text className="text-base font-normal shadow-2xl">
+                .
+                {
+                  parseFloat(buyValue.replace(",", "."))
+                    .toFixed(4)
+                    .split(".")[1]
+                }
+              </Text>
               {"₺"}
             </Text>
             <Text className="text-base font-semibold shadow-2xl">
-              {parseFloat(sellValue.replace(",", ".")).toFixed(4)}
+              {parseFloat(sellValue.replace(",", ".")).toFixed(4).split(".")[0]}
+              <Text className="text-base font-normal shadow-2xl">
+                .
+                {
+                  parseFloat(sellValue.replace(",", "."))
+                    .toFixed(4)
+                    .split(".")[1]
+                }
+              </Text>
               {"₺"}
             </Text>
           </View>
