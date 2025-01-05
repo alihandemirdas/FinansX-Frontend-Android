@@ -133,7 +133,7 @@ const MainScreen: React.FC = () => {
   return (
     <View className="flex-1">
       <View
-        className={`flex-1 px-6 pt-6 ${
+        className={`flex-1 px-6 pt-6 pb-2 ${
           theme === "dark" ? "bg-[#232336]" : "bg-white"
         }`}
       >
@@ -193,7 +193,7 @@ const MainScreen: React.FC = () => {
           />
         )}
       </View>
-      <View className="pb-1 absolute bottom-0 w-full justify-center items-center flex">
+      <View className="absolute bottom-0 w-full justify-center items-center flex">
         <Banner />
       </View>
     </View>

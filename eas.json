@@ -30,6 +30,18 @@
       "android": {
         "buildType": "app-bundle"
       }
+    },
+    "production-apk": {
+      "distribution": "store",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production-aab": {
+      "distribution": "store",
+      "android": {
+        "buildType": "app-bundle"
+      }
     }
   }
 }

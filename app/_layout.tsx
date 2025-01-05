@@ -6,7 +6,7 @@ import {
   Theme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { SplashScreen } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { Platform } from "react-native";
@@ -28,6 +28,11 @@ const DARK_THEME: Theme = {
 };
 
 SplashScreen.preventAutoHideAsync();
+
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
 
 export default function RootLayout() {
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
