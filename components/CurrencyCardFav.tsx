@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Alert, TouchableOpacity, View } from "react-native";
-import { Text } from "~/components/ui/text";
+import { Text } from "../components/ui/text";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
-import { useColorScheme } from "~/lib/useColorScheme";
+import { useColorScheme } from "../lib/useColorScheme";
 
 type CurrencyCardProps = {
   buyValue: string;
@@ -85,7 +85,7 @@ export default function CurrencyCardFav({
                   {"Alış:   "}
                 </Text>
                 <Text className="text-base font-semibold shadow-2xl">
-                  {parseFloat(buyValue.replace(",", ".")).toFixed(4)}{"₺"}
+                  {parseFloat(buyValue.replace(",", ".")).toLocaleString("tr-TR", { minimumFractionDigits: 4 })}{"₺"}
                 </Text>
               </View>
               <View className="flex flex-row">
@@ -93,7 +93,7 @@ export default function CurrencyCardFav({
                   {"Satış: "}
                 </Text>
                 <Text className="text-base font-semibold shadow-2xl">
-                  {parseFloat(sellValue.replace(",", ".")).toFixed(4)}{"₺"}
+                  {parseFloat(sellValue.replace(",", ".")).toLocaleString("tr-TR", { minimumFractionDigits: 4 })}{"₺"}
                 </Text>
               </View>
             </View>

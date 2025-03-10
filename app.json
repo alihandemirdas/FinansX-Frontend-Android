@@ -2,7 +2,7 @@
   "expo": {
     "name": "FinansX",
     "slug": "FinansX",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.katreo.finansx"
     },
     "android": {
       "adaptiveIcon": {
@@ -39,7 +40,7 @@
         "react-native-google-mobile-ads",
         {
           "android_app_id": "ca-app-pub-9923127969454459/2142204377",
-          "ios_app_id": "ca-app-pub-3940256099942544/2934735716"
+          "ios_app_id": "ca-app-pub-9923127969454459/9284034083"
         }
       ]
     ],

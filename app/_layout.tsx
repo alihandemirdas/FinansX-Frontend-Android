@@ -1,4 +1,4 @@
-import "~/global.css";
+import "../global.css";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DarkTheme,
@@ -10,12 +10,12 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { Platform } from "react-native";
-import { useColorScheme } from "~/lib/useColorScheme";
-import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
-import { NAV_THEME } from "~/lib/constants";
-import { ThemeToggle } from "~/components/ThemeToggle";
+import { useColorScheme } from "../lib/useColorScheme";
+import { setAndroidNavigationBar } from "../lib/android-navigation-bar";
+import { NAV_THEME } from "../lib/constants";
+import { ThemeToggle } from "../components/ThemeToggle";
 import { Stack } from "expo-router";
-import Banner from "~/components/Banner";
+import Banner from "../components/Banner";
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -81,13 +81,6 @@ export default function RootLayout() {
           name="Contact"
           options={{
             title: "İletişim",
-            headerRight: () => <ThemeToggle />, // Tema değiştirme butonu
-          }}
-        />
-        <Stack.Screen
-          name="Support"
-          options={{
-            title: "Destek Ol",
             headerRight: () => <ThemeToggle />, // Tema değiştirme butonu
           }}
         />

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { useColorScheme } from "~/lib/useColorScheme";
+import { useColorScheme } from "../lib/useColorScheme";
 
 export default function HeaderLabels() {
   const { isDarkColorScheme } = useColorScheme();

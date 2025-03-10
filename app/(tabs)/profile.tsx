@@ -2,11 +2,10 @@ import React from "react";
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useColorScheme } from "~/lib/useColorScheme";
+import { useColorScheme } from "../../lib/useColorScheme";
 
 type RootStackParamList = {
   Contact: undefined;
-  Support: undefined;
   ReportIssue: undefined;
   TermsOfService: undefined;
 };
@@ -24,7 +23,6 @@ const data: DataItem[] = [
     icon: "document-text-outline",
     label: "Kullanım Sözleşmesi",
   },
-  { screen: "Support", icon: "heart-outline", label: "Destek Ol" },
 ];
 
 const { height } = Dimensions.get("window");

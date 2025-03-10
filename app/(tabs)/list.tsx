@@ -7,13 +7,13 @@ import {
   Platform,
 } from "react-native";
 import React, { useCallback, useState, useEffect, useRef } from "react";
-import { useCurrencyData } from "~/hooks/useCurrencyData";
-import CurrencyCard from "~/components/CurrencyCard";
+import { useCurrencyData } from "../../hooks/useCurrencyData";
+import CurrencyCard from "../../components/CurrencyCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useExchangeRatesStore from "~/stores/exchangeRatesStore";
-import CurrencyCardFav from "~/components/CurrencyCardFav";
-import { useColorScheme } from "~/lib/useColorScheme";
-import Banner from "~/components/Banner";
+import useExchangeRatesStore from "../../stores/exchangeRatesStore";
+import CurrencyCardFav from "../../components/CurrencyCardFav";
+import { useColorScheme } from "../../lib/useColorScheme";
+import Banner from "../../components/Banner";
 
 const list: React.FC = () => {
   const { isDarkColorScheme } = useColorScheme();

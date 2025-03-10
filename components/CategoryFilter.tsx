@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity, Text, View } from "react-native";
-import { useColorScheme } from "~/lib/useColorScheme";
+import { useColorScheme } from "../lib/useColorScheme";
 
 type CategoryFilterProps = {
   selectedCategory: string;

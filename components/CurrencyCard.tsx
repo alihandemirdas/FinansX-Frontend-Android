@@ -1,13 +1,14 @@
 import React from "react";
 import { View } from "react-native";
-import { Text } from "~/components/ui/text";
+import { Text } from "../components/ui/text";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
-import { useColorScheme } from "~/lib/useColorScheme";
+import { useColorScheme } from "../lib/useColorScheme";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 type CurrencyCardProps = {
+  category: string;
   chartData: number[]; // Grafik verileri bir sayı dizisi
   buyValue: string;
   sellValue: string;
@@ -17,6 +18,7 @@ type CurrencyCardProps = {
 };
 
 export default function CurrencyCard({
+  category,
   chartData,
   buyValue,
   sellValue,
@@ -70,7 +72,7 @@ export default function CurrencyCard({
                       parseFloat(
                         change.replace("%", "").replace(",", ".").trim()
                       )
-                    ).toFixed(2)}
+                    ).toLocaleString("tr-TR", { minimumFractionDigits: 2 })}
                   </Text>
                 </View>
               )}
@@ -122,27 +124,15 @@ export default function CurrencyCard({
           {/* Değer Bölgesi */}
           <View className="w-2/3 absolute right-0 justify-end flex flex-row gap-x-4 overflow-hidden pr-2">
             <Text className="text-base font-semibold shadow-2xl">
-              {parseFloat(buyValue.replace(",", ".")).toFixed(4).split(".")[0]}
-              <Text className="text-base font-normal shadow-2xl">
-                .
-                {
-                  parseFloat(buyValue.replace(",", "."))
-                    .toFixed(4)
-                    .split(".")[1]
-                }
-              </Text>
+              {parseFloat(buyValue).toLocaleString("tr-TR", {
+                minimumFractionDigits: category === "gold" ? 2 : 4,
+              })}
               {"₺"}
             </Text>
             <Text className="text-base font-semibold shadow-2xl">
-              {parseFloat(sellValue.replace(",", ".")).toFixed(4).split(".")[0]}
-              <Text className="text-base font-normal shadow-2xl">
-                .
-                {
-                  parseFloat(sellValue.replace(",", "."))
-                    .toFixed(4)
-                    .split(".")[1]
-                }
-              </Text>
+              {parseFloat(sellValue).toLocaleString("tr-TR", {
+                minimumFractionDigits: category === "gold" ? 2 : 4,
+              })}
               {"₺"}
             </Text>
           </View>

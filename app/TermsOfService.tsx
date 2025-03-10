@@ -1,15 +1,15 @@
 import React from "react";
 import { ScrollView, View, Text } from "react-native";
-import { useColorScheme } from "~/lib/useColorScheme";
+import { useColorScheme } from "../lib/useColorScheme";
 
 const TermsOfService: React.FC = () => {
   const { isDarkColorScheme } = useColorScheme();
 
   return (
     <ScrollView
-      className={`flex-1 ${isDarkColorScheme ? "bg-[#232336]" : "bg-white"}`}
+      className={`flex ${isDarkColorScheme ? "bg-[#232336]" : "bg-white"}`}
     >
-      <View className="justify-center items-center px-8 py-10">
+      <View className="items-center px-8 py-10">
         <Text
           className={`text-lg ${
             isDarkColorScheme ? "text-white" : "text-black"

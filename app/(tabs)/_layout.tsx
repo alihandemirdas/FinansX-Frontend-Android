@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { ThemeToggle } from "~/components/ThemeToggle"; // Dark/Light Mode Toggle
-import { useColorScheme } from "~/lib/useColorScheme";
+import { ThemeToggle } from "../../components/ThemeToggle"; // Dark/Light Mode Toggle
+import { useColorScheme } from "../../lib/useColorScheme";
 
 // Tab ekranları için layout
 export default function TabLayout() {
@@ -45,6 +45,23 @@ export default function TabLayout() {
             return (
               <Ionicons
                 name={focused ? "heart" : "heart-outline"}
+                size={size}
+                color={color}
+              />
+            );
+          },
+        }}
+      />
+      <Tabs.Screen
+        name="wallet"
+        options={{
+          title: "Cüzdan", // Tab title'ı
+          headerShown: true, // Tab ekranlarında header'ı gizle
+          headerRight: () => <ThemeToggle />,
+          tabBarIcon: ({ focused, color, size }) => {
+            return (
+              <Ionicons
+                name={focused ? "wallet" : "wallet-outline"}
                 size={size}
                 color={color}
               />

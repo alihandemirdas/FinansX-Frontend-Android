@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ActivityIndicator, Text } from "react-native";
-import { useColorScheme } from "~/lib/useColorScheme";
+import { useColorScheme } from "../lib/useColorScheme";
 
 type LoadingIndicatorProps = {
   spinnerColor: string;

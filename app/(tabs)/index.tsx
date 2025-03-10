@@ -11,22 +11,22 @@ import {
   Alert,
   useColorScheme,
   BackHandler,
-  FlatList,
 } from "react-native";
-import CurrencyCard from "~/components/CurrencyCard";
-import HeroCard from "~/components/HeroCard";
-import CategoryFilter from "~/components/CategoryFilter";
-import HeaderLabels from "~/components/HeaderLabels";
-import LoadingIndicator from "~/components/LoadingIndicator";
-import RightAction from "~/components/RightAction";
-import { useCurrencyData } from "~/hooks/useCurrencyData";
-import useExchangeRatesStore from "~/stores/exchangeRatesStore";
+import CurrencyCard from "../../components/CurrencyCard";
+import HeroCard from "../../components/HeroCard";
+import CategoryFilter from "../../components/CategoryFilter";
+import HeaderLabels from "../../components/HeaderLabels";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import RightAction from "../../components/RightAction";
+import { useCurrencyData } from "../../hooks/useCurrencyData";
+import useExchangeRatesStore from "../../stores/exchangeRatesStore";
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
-import Banner from "~/components/Banner";
+import Banner from "../../components/Banner";
 import { configureReanimatedLogger } from "react-native-reanimated";
+import { FlashList } from "@shopify/flash-list";
 
 const chartData = [27.5, 28, 27.8, 28.2, 28.5, 28, 27.8, 28.2, 28.5];
 
@@ -148,9 +148,10 @@ const MainScreen: React.FC = () => {
         {loading ? (
           <LoadingIndicator spinnerColor={refreshControlColors.spinnerColor} />
         ) : (
-          <FlatList
+          <FlashList
             data={filteredData}
             keyExtractor={(item, index) => `${item.currencyCode}-${index}`}
+            estimatedItemSize={60} // Performans için tahmini yükseklik veriyoruz
             renderItem={({ item }) => (
               <GestureHandlerRootView>
                 <ReanimatedSwipeable
@@ -170,6 +171,7 @@ const MainScreen: React.FC = () => {
                   }
                 >
                   <CurrencyCard
+                    category={item.category}
                     chartData={chartData}
                     buyValue={`${item.buyRate} ₺`}
                     sellValue={`${item.sellRate} ₺`}

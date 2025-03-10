@@ -22,8 +22,8 @@ import NoFlag from "./flags/NoFlag";
 import SeFlag from "./flags/SeFlag";
 import JpFlag from "./flags/JpFlag";
 import CnFlag from "./flags/CnFlag";
-import useExchangeRatesStore from "~/stores/exchangeRatesStore";
-import { useColorScheme } from "~/lib/useColorScheme";
+import useExchangeRatesStore from "../stores/exchangeRatesStore";
+import { useColorScheme } from "../lib/useColorScheme";
 
 const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
   const [amount, setAmount] = useState<string>("1");
@@ -50,7 +50,11 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
       const tryEquivalent = parseFloat(amountValue) * fromRateNumeric;
       const convertedValue = tryEquivalent / toRateNumeric;
 
-      setResult(isNaN(convertedValue) ? "0.00" : convertedValue.toFixed(2));
+      setResult(
+        isNaN(convertedValue)
+          ? "0.00"
+          : convertedValue.toLocaleString("tr-TR", { minimumFractionDigits: 1 })
+      );
     } else {
       setResult("0.00");
     }
@@ -69,9 +73,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
   });
 
   const handleIOSPicker = (setCurrency: (value: string) => void) => {
-    const options = currencyCard
-      .filter((currency) => currency.category === "currency")
-      .map((currency) => currency.currencyCode);
+    const options = currencyCard.map((currency) => currency.currencyCode);
 
     ActionSheetIOS.showActionSheetWithOptions(
       {
@@ -130,7 +132,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
 
   return (
     <View
-      className={`p-5 rounded-3xl drop-shadow-lg mb-4 ${
+      className={`px-5 py-3 rounded-3xl drop-shadow-lg mb-4 ${
         isDarkColorScheme ? "bg-white" : "bg-gray-200"
       }`}
     >
@@ -186,7 +188,7 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
       </View>
 
       {/* Ortadaki Çizgi ve Buton */}
-      <View className="w-full flex flex-row justify-center items-center my-2">
+      <View className="w-full flex flex-row justify-center items-center my-1">
         <View className="w-1/3 h-[2px] bg-gray-300"></View>
         <TouchableOpacity
           onPress={handleSwitch}
@@ -250,8 +252,8 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
         </View>
       </View>
 
-      <View className="flex flex-row justify-center mt-2">
-        <Text className="text-gray-600 font-light text-xs">
+      <View className="flex flex-row justify-center mt-1">
+        <Text className="text-gray-600 font-light text-[8px]">
           Son Güncelleme: {lastUpdated}
         </Text>
       </View>

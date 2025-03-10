@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchCurrencyData, CurrencyData } from "~/services/api";
+import { fetchCurrencyData, CurrencyData } from "../services/api";
 
 export const useCurrencyData = () => {
   const [currencyData, setCurrencyData] = useState<CurrencyData[]>([]);
