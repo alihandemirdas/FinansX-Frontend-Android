@@ -22,6 +22,7 @@ import NoFlag from "./flags/NoFlag";
 import SeFlag from "./flags/SeFlag";
 import JpFlag from "./flags/JpFlag";
 import CnFlag from "./flags/CnFlag";
+import GoldSVG from "./flags/Gold";
 import useExchangeRatesStore from "../stores/exchangeRatesStore";
 import { useColorScheme } from "../lib/useColorScheme";
 
@@ -127,8 +128,8 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
     transform: [{ rotate: rotateInterpolate }],
   };
 
-  const SelectedFlag = currencyFlags[fromCurrency];
-  const SelectedFlag2 = currencyFlags[toCurrency];
+  const SelectedFlag = currencyFlags[fromCurrency] ?? GoldSVG;
+  const SelectedFlag2 = currencyFlags[toCurrency] ?? GoldSVG;
 
   return (
     <View
@@ -160,15 +161,13 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
               }}
               style={{ height: 50, width: "100%" }}
             >
-              {currencyCard
-                .filter((currency) => currency.category === "currency")
-                .map((currency) => (
-                  <Picker.Item
-                    key={currency.currencyCode}
-                    label={currency.currencyCode}
-                    value={currency.currencyCode}
-                  />
-                ))}
+              {currencyCard.map((currency) => (
+                <Picker.Item
+                  key={currency.currencyCode}
+                  label={currency.currencyCode}
+                  value={currency.currencyCode}
+                />
+              ))}
             </Picker>
           )}
         </View>
@@ -230,15 +229,13 @@ const HeroCard = ({ currencyCard }: { currencyCard: any[] }) => {
               }}
               style={{ height: 50, width: "100%" }}
             >
-              {currencyCard
-                .filter((currency) => currency.category === "currency")
-                .map((currency) => (
-                  <Picker.Item
-                    key={currency.currencyCode}
-                    label={currency.currencyCode}
-                    value={currency.currencyCode}
-                  />
-                ))}
+              {currencyCard.map((currency) => (
+                <Picker.Item
+                  key={currency.currencyCode}
+                  label={currency.currencyCode}
+                  value={currency.currencyCode}
+                />
+              ))}
             </Picker>
           )}
         </View>

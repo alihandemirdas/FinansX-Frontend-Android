@@ -2,7 +2,7 @@
   "expo": {
     "name": "FinansX",
     "slug": "FinansX",
-    "version": "1.0.1",
+    "version": "1.2.0",
     "orientation": "portrait",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -39,7 +39,7 @@
       [
         "react-native-google-mobile-ads",
         {
-          "android_app_id": "ca-app-pub-9923127969454459/2142204377",
+          "android_app_id": "ca-app-pub-9923127969454459/2361696229",
           "ios_app_id": "ca-app-pub-9923127969454459/9284034083"
         }
       ]

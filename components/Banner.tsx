@@ -10,7 +10,7 @@ import { View } from "react-native";
 // Ad Unit ID (Test ID veya gerçek ID)
 const adUnitId: string = __DEV__
   ? TestIds.ADAPTIVE_BANNER
-  : "ca-app-pub-9923127969454459/9284034083";
+  : "ca-app-pub-9923127969454459/2361696229";
 
 const Banner: React.FC = () => {
   const bannerRef = useRef<BannerAd>(null);

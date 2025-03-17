@@ -34,7 +34,6 @@ const MainScreen: React.FC = () => {
   const { rates, connectSocket, disconnectSocket, setRates } =
     useExchangeRatesStore();
   const { currencyData, loading, fetchData } = useCurrencyData();
-
   const [favorites, setFavorites] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);

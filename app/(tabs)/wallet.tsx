@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
-  ActionSheetIOS,
+  Button,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ActionSheet from "react-native-actions-sheet";
@@ -17,6 +17,7 @@ import useExchangeRatesStore from "../../stores/exchangeRatesStore";
 import { useColorScheme } from "../../lib/useColorScheme";
 import LinearGradient from "react-native-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 
 // Types
 interface Asset {
@@ -309,26 +310,11 @@ const AddAssetSheet = ({ actionSheetRef, isDarkColorScheme, rates, onAdd }) => {
   const [date, setDate] = useState(new Date());
   const [customPrice, setCustomPrice] = useState<string>("");
   const [fromCurrency, setFromCurrency] = useState<string>("USD");
+  const [showPicker, setShowPicker] = useState(false);
 
   const bottomSheetBackgroundColor = isDarkColorScheme ? "#232336" : "#f1f1f1";
   const bottomSheetTextColor = isDarkColorScheme ? "#fff" : "#000";
   const buttonBackgroundColor = isDarkColorScheme ? "#4CAF50" : "#27278d";
-
-  const handleIOSPicker = () => {
-    const options = rates.map((currency) => currency.currencyCode);
-
-    ActionSheetIOS.showActionSheetWithOptions(
-      {
-        options: [...options, "Çıkış"],
-        cancelButtonIndex: options.length,
-      },
-      (buttonIndex) => {
-        if (buttonIndex !== options.length) {
-          setFromCurrency(options[buttonIndex]);
-        }
-      }
-    );
-  };
 
   const handleAddAsset = () => {
     if (!amount || isNaN(Number(amount))) {
@@ -359,6 +345,13 @@ const AddAssetSheet = ({ actionSheetRef, isDarkColorScheme, rates, onAdd }) => {
     actionSheetRef.current?.hide();
   };
 
+  const onChange = (event, selectedDate) => {
+    setShowPicker(false); // Seçim sonrası DatePicker'ı kapat
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
+
   return (
     <ActionSheet
       ref={actionSheetRef}
@@ -387,6 +380,7 @@ const AddAssetSheet = ({ actionSheetRef, isDarkColorScheme, rates, onAdd }) => {
           value={amount}
           onChangeText={setAmount}
           style={{ color: bottomSheetTextColor }}
+          placeholderTextColor={"gray"}
         />
 
         <Text
@@ -395,15 +389,28 @@ const AddAssetSheet = ({ actionSheetRef, isDarkColorScheme, rates, onAdd }) => {
         >
           Birim:
         </Text>
-        <TouchableOpacity
-          className="border rounded-xl dark:border-white p-4 mb-2"
-          onPress={handleIOSPicker}
-          style={{ borderColor: bottomSheetTextColor }}
+        <Picker
+          selectedValue={fromCurrency}
+          onValueChange={(value) => {
+            setFromCurrency(value);
+          }}
+          style={{
+            height: 50,
+            width: "100%",
+            color: isDarkColorScheme ? "white" : "black", // Metin rengi
+            backgroundColor: isDarkColorScheme ? "#232336" : "#f1f1f1", // Arkaplan rengi
+          }}
+          dropdownIconColor={isDarkColorScheme ? "white" : "black"} // Açılır ok simgesi rengi
         >
-          <Text className="text-gray-800 dark:text-white font-semibold">
-            {fromCurrency}
-          </Text>
-        </TouchableOpacity>
+          {rates.map((currency) => (
+            <Picker.Item
+              key={currency.currencyCode}
+              label={currency.currencyCode}
+              value={currency.currencyCode}
+              color={isDarkColorScheme ? "black" : "black"} // Dropdown içi metin rengi
+            />
+          ))}
+        </Picker>
 
         <Text
           className="text-sm font-light mb-1"
@@ -411,19 +418,34 @@ const AddAssetSheet = ({ actionSheetRef, isDarkColorScheme, rates, onAdd }) => {
         >
           Tarih:
         </Text>
+        <View
+          style={{
+            backgroundColor: isDarkColorScheme ? "#232336" : "#f1f1f1", // Arkaplan rengi
+            marginBottom: 8,
+          }}
+        >
+          <TouchableOpacity
+            className="border rounded-xl dark:border-white p-4 mb-2 dark:bg-[#232336] bg-[#f1f1f1]"
+            onPress={() => setShowPicker(true)}
+          >
+            <Text className="text-center text-[14px] dark:text-white text-black">
+              {date.toLocaleDateString("tr-TR")}
+            </Text>
+          </TouchableOpacity>
 
-        <View className="py-2 mb-2">
-          <DateTimePicker
-            value={date}
-            mode="date"
-            display="default"
-            onChange={(event, selectedDate) => {
-              if (selectedDate) {
-                setDate(selectedDate);
-              }
-            }}
-            maximumDate={new Date()}
-          />
+          {showPicker && (
+            <View className="py-2 mb-2">
+              <DateTimePicker
+                value={date}
+                mode="date"
+                display="calendar"
+                onChange={(event, selectedDate) => {
+                  onChange(event, selectedDate);
+                }}
+                maximumDate={new Date()}
+              />
+            </View>
+          )}
         </View>
 
         <Text
@@ -439,6 +461,7 @@ const AddAssetSheet = ({ actionSheetRef, isDarkColorScheme, rates, onAdd }) => {
           value={customPrice}
           onChangeText={setCustomPrice}
           style={{ color: bottomSheetTextColor }}
+          placeholderTextColor={"gray"}
         />
 
         <TouchableOpacity
