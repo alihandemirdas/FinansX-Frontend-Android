@@ -45,7 +45,7 @@ const Profile: React.FC = () => {
       >
         <Ionicons name="person-circle-outline" size={80} color="white" />
         <Text className="text-2xl font-bold text-white mt-4">FinansX</Text>
-        <Text className="text-sm text-white mt-3">v1.2.0</Text>
+        <Text className="text-sm text-white mt-3">v1.2.2</Text>
         <Text className="text-base text-white mt-1 text-center px-4">
           Bu uygulama, kullanıcıların günlük döviz ve altın kurlarını anlık
           olarak takip etmelerini sağlar.

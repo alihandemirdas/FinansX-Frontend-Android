@@ -234,7 +234,7 @@ const AssetItem = ({ item, index, isDarkColorScheme, rates, onLongPress }) => {
   return (
     <TouchableOpacity
       onLongPress={() => onLongPress(index)}
-      delayLongPress={500}
+      delayLongPress={300}
       activeOpacity={0.7}
     >
       <View
@@ -328,7 +328,10 @@ const AddAssetSheet = ({ actionSheetRef, isDarkColorScheme, rates, onAdd }) => {
       return;
     }
 
-    const finalPrice = customPrice ? Number(customPrice) : rate.buyRate;
+    const finalPrice = customPrice ? customPrice : rate.buyRate;
+    const ff = finalPrice.replace(",", ".").toLocaleString("tr-TR", {
+      minimumFractionDigits: 2,
+    });
 
     const newAsset = {
       currencyCode: rate.currencyCode,
@@ -336,7 +339,7 @@ const AddAssetSheet = ({ actionSheetRef, isDarkColorScheme, rates, onAdd }) => {
       amount: Number(amount),
       date: dayjs(date).format("YYYY-MM-DD"),
       price: rate.buyRate,
-      buyPrice: finalPrice,
+      buyPrice: ff,
     };
 
     onAdd(newAsset);
@@ -378,7 +381,10 @@ const AddAssetSheet = ({ actionSheetRef, isDarkColorScheme, rates, onAdd }) => {
           placeholder="Miktar giriniz"
           keyboardType="numeric"
           value={amount}
-          onChangeText={setAmount}
+          onChangeText={(text) => {
+            const formattedAmount = text.replace(",", ".");
+            setAmount(formattedAmount);
+          }}
           style={{ color: bottomSheetTextColor }}
           placeholderTextColor={"gray"}
         />
